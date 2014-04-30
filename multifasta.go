@@ -60,7 +60,7 @@ func main() {
 
   defer out.Close()
 
-  for _, infile := range input_paths {
+  for index, infile := range input_paths {
     basefile := filepath.Base(infile)
     extension := filepath.Ext(basefile)
     fmt.Fprintf(out, ">%s exported from %s\r\n", basefile[:len(basefile)-len(extension)], basefile)
@@ -70,6 +70,8 @@ func main() {
     }
     io.Copy(out, in)
     in.Close()
-    fmt.Fprintf(out, "\r\n")
+    if index+1 < len(input_paths) {
+      fmt.Fprintf(out, "\r\n")
+    }
   }
 }
