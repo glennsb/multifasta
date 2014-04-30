@@ -28,7 +28,7 @@ func defaultOutput(inputPath string) string {
     t.Day(),
     t.Hour(),
     t.Minute())
-  return filepath.Join(dir,outfile)
+  return filepath.Join(dir, outfile)
 }
 
 func openOutput(outputPath string) *os.File {
@@ -46,7 +46,7 @@ func openOutput(outputPath string) *os.File {
 
 func main() {
   if len(flag.Args()) <= 0 {
-    fmt.Fprintf(os.Stderr,"Missing one or more input file(s)\n")
+    fmt.Fprintf(os.Stderr, "Missing one or more input file(s)\n")
     flag.Usage()
     os.Exit(1)
   }
@@ -60,13 +60,13 @@ func main() {
   for _, infile := range flag.Args() {
     basefile := filepath.Base(infile)
     extension := filepath.Ext(basefile)
-    fmt.Fprintf(out,">%s exported from %s\n", basefile[:len(basefile)-len(extension)], basefile)
+    fmt.Fprintf(out, ">%s exported from %s\n", basefile[:len(basefile)-len(extension)], basefile)
     in, err := os.Open(infile)
     if err != nil {
       log.Fatal(err)
     }
-    io.Copy(out,in)
+    io.Copy(out, in)
     in.Close()
-    fmt.Fprintln(out,"")
+    fmt.Fprintln(out, "")
   }
 }
