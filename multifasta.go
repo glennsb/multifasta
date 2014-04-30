@@ -7,6 +7,7 @@ import (
   "log"
   "os"
   "path/filepath"
+  "sort"
   "time"
 )
 
@@ -50,23 +51,25 @@ func main() {
     flag.Usage()
     os.Exit(1)
   }
+  input_paths := flag.Args()
+  sort.Strings(input_paths)
   if "" == output_name {
-    output_name = defaultOutput(flag.Args()[0])
+    output_name = defaultOutput(input_paths[0])
   }
   out := openOutput(output_name)
 
   defer out.Close()
 
-  for _, infile := range flag.Args() {
+  for _, infile := range input_paths {
     basefile := filepath.Base(infile)
     extension := filepath.Ext(basefile)
-    fmt.Fprintf(out, ">%s exported from %s\n", basefile[:len(basefile)-len(extension)], basefile)
+    fmt.Fprintf(out, ">%s exported from %s\r\n", basefile[:len(basefile)-len(extension)], basefile)
     in, err := os.Open(infile)
     if err != nil {
       log.Fatal(err)
     }
     io.Copy(out, in)
     in.Close()
-    fmt.Fprintln(out, "")
+    fmt.Fprintf(out, "\r\n")
   }
 }
