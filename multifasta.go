@@ -8,6 +8,7 @@ import (
   "os"
   "path/filepath"
   "sort"
+  "strings"
   "time"
 )
 
@@ -63,7 +64,13 @@ func main() {
   for index, infile := range input_paths {
     basefile := filepath.Base(infile)
     extension := filepath.Ext(basefile)
-    fmt.Fprintf(out, ">%s exported from %s\r\n", basefile[:len(basefile)-len(extension)], basefile)
+    underscore := strings.Index(basefile,"_")
+    if underscore < 0 {
+      underscore = 0
+    } else {
+      underscore += 1
+    }
+    fmt.Fprintf(out, ">%s exported from %s\r\n", basefile[underscore:len(basefile)-len(extension)], basefile)
     in, err := os.Open(infile)
     if err != nil {
       log.Fatal(err)
