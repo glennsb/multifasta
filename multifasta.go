@@ -65,7 +65,7 @@ func main() {
   for index, infile := range input_paths {
     basefile := filepath.Base(infile)
     extension := filepath.Ext(basefile)
-    underscore := strings.Index(basefile,"_")
+    underscore := strings.Index(basefile, "_")
     if underscore < 0 {
       underscore = 0
     } else {
