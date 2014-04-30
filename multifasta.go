@@ -17,14 +17,14 @@ var (
 )
 
 func init() {
-  flag.StringVar(&output_name, "output", output_name, "Output filename (- for STDOUT, do not specify for default, multifasta.txt)")
+  flag.StringVar(&output_name, "output", output_name, "Output filename (- for STDOUT, do not specify for default, multifasta_output_TIMESTAMP.fasta)")
   flag.Parse()
 }
 
 func defaultOutput(inputPath string) string {
   dir := filepath.Dir(inputPath)
   t := time.Now()
-  outfile := fmt.Sprintf("multifasta_output_%d%02d%02d-%02d%02d.txt",
+  outfile := fmt.Sprintf("multifasta_output_%d%02d%02d-%02d%02d.fasta",
     t.Year(),
     t.Month(),
     t.Day(),
