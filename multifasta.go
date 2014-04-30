@@ -24,12 +24,13 @@ func init() {
 func defaultOutput(inputPath string) string {
   dir := filepath.Dir(inputPath)
   t := time.Now()
-  outfile := fmt.Sprintf("multifasta_output_%d%02d%02d-%02d%02d.fasta",
+  outfile := fmt.Sprintf("multifasta_output_%d%02d%02d-%02d%02d%02d.fasta",
     t.Year(),
     t.Month(),
     t.Day(),
     t.Hour(),
-    t.Minute())
+    t.Minute(),
+    t.Second())
   return filepath.Join(dir, outfile)
 }
 
