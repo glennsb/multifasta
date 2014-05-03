@@ -93,6 +93,7 @@ func main() {
     } else {
       underscore += 1
     }
+    // CRLF is used as this is intended to be used by windows user in Notepad.exe typically
     fmt.Fprintf(out, ">%s exported from %s\r\n", basefile[underscore:len(basefile)-len(extension)], basefile)
     in, err := os.Open(infile)
     if err != nil {
